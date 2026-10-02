@@ -16,3 +16,4 @@ TMessagesProj_AppHuawei/afat/
 TMessagesProj/jni/ffmpeg/build_android
 .kotlin/
 buildSrc/.kotlin/
+.vscode/
