@@ -115,7 +115,7 @@ dependencies {
 android {
     compileSdkVersion 36
     buildToolsVersion '36.0.0'
-    ndkVersion "27.2.12479018"
+    ndkVersion "27.0.12077973"
 
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 
@@ -147,10 +147,14 @@ android {
 
         multiDexEnabled true
 
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+
         externalNativeBuild {
             cmake {
                 version '3.22.1'
-                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21' //, '-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_BUILD_PARALLEL_LEVEL=4' //, '-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON'
                 targets 'tmessages.49'
             }
         }
@@ -158,10 +162,10 @@ android {
 
     buildTypes {
         debug {
-            jniDebuggable true
+            jniDebuggable false
             shrinkResources false
             multiDexEnabled true
-            ndk.debugSymbolLevel = 'FULL'
+            ndk.debugSymbolLevel = 'NONE'
             buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
